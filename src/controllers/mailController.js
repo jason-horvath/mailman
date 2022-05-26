@@ -8,7 +8,7 @@ const sendMail = asyncHandler(async (req, res) => {
   const hashed = CryptoJS.AES.decrypt(data.transport_key, process.env.EMAIL_SEND_SEC)
 
   if (hashed.toString(CryptoJS.enc.Utf8) === process.env.EMAIL_SEND_PASS) {
-    await mailTransport.sendMail(mailBuilder.default(data))
+    await mailTransport.sendMail(mailBuilder.standard(data))
     res.status(200).json({
       status: 200,
       message: "Successful mail transport."
