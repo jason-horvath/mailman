@@ -1,6 +1,7 @@
 const cors = require('cors')
 const httpClientConfig = require('../config/httpClient.config')
 const { corsEnabled, whitelist } = httpClientConfig
+
 const corsProtector = (req, callback) => {
   let corsOptions = {
     origin: false
@@ -11,7 +12,7 @@ const corsProtector = (req, callback) => {
   } else if (corsEnabled) {
     callback(new Error('Not allowed by CORS'))
   }
-  
+
   callback(null, corsOptions)
 }
 
