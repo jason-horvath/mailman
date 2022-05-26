@@ -2,7 +2,7 @@ const express = require('express')
 const mailRouter = express.Router()
 const {
   sendMail
-} = require('../controlers/mailController')
+} = require('../controllers/mailController')
 
 mailRouter.route('/send').post(sendMail)
 
