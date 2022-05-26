@@ -1,10 +1,11 @@
+const standard = require('../templates/mail/standard')
 const mailBuilder = {
-  default: (data) => {
+  standard: (data) => {
     return {
       from: data.email,
       to: process.env.EMAIL_SEND_ADDR,
-      subject: ``,
-      html: ``
+      subject: data.subject,
+      html: standard(data)
     }
   }
 
