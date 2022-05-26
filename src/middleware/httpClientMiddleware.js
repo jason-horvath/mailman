@@ -1,17 +1,19 @@
-const asyncHandler = require('express-async-handler')
+const cors = require('cors')
 const httpClientConfig = require('../config/httpClient.config')
-
-const whiteListProtector = asyncHandler(async (req, res, next) => {
-  if (httpClientConfig.whitelist.includes(req.header('origin'))) {
-    res.header('Acces-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-    next()
-  } else {
-    res.status(403)
-    throw new Error('Not authorized for this request.')
+const { corsEnabled, whitelist } = httpClientConfig
+const corsProtector = (req, callback) => {
+  let corsOptions = {
+    origin: false
   }
-})
+  console.log(corsEnabled)
+  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions.origin = true
+  } else if (corsEnabled) {
+    callback(new Error('Not allowed by CORS'))
+  }
+  callback(null, corsOptions)
+}
 
 module.exports = {
-  whiteListProtector
+  corsProtector
 }
