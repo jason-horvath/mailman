@@ -1,4 +1,3 @@
-const cors = require('cors')
 const httpClientConfig = require('../config/httpClient.config')
 const { corsEnabled, whitelist } = httpClientConfig
 
